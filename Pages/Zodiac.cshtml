@@ -1,0 +1,37 @@
+@page "/"
+@model ZodiacModel
+@{
+    ViewData["Title"] = "Zodiac";
+}
+
+<div class="zodiac-container">
+    <form id="zodiac-form" method="post">
+        <label>Year:<br>
+            <input asp-for="Year" type="number" name="year">
+        </label>
+
+        <div class="button-container">
+        <button id="get-zodiac-button" type="submit">Get Zodiac</button>
+        <a id="clear-button" href="/">Clear</a>
+        </div>
+    </form>
+
+    @if (Model.IsValidYear || Model.DisplayError)
+    {
+        <div id="zodiac-result">
+            @if (Model.IsValidYear)
+            {
+                <div id="zodiac-display">
+                    <p>Your zodiac is <strong>@Model.Zodiac</strong></p>
+                    <img src="@Model.ZodiacPath" alt="@Model.Zodiac">
+                </div>
+            }
+            else
+            {
+                <div id="error-display">
+                    <p>Year range: 1900 to next year only.</p>
+                </div>
+            }
+        </div>
+    }
+</div>
